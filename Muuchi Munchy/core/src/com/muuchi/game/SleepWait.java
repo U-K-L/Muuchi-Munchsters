@@ -12,6 +12,11 @@ public class SleepWait {
 
     public SleepWait(){
 
+        create();
+    }
+    public void create(){
+
+        thread = new Thread((Runnable) this);
         thread.start();
     }
     //Part of Runnable. Will run as soon as game starts.

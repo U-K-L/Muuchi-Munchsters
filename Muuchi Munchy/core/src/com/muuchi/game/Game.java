@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.FPSLogger;
 import java.util.HashMap;
 import java.util.Map;
 
+import VisionGoggles.ExportScene;
 import VisionGoggles.GameObject;
 import VisionGoggles.Scene;
 import VisionGoggles.SceneController;
@@ -18,12 +19,18 @@ import maps.park;
 
 
 public class Game extends ApplicationAdapter {
+
+	//Displays batch of sprites.
 	SpriteBatch batch;
-	//Texture img;
-	private FPSLogger fps;
+
+	private FPSLogger fps; //track FPS.
+
+	//Managers
 	public SceneManager sceneManager;
 	public SceneController sceneController;
-	public static Map<String, SceneController> SceneControllers = new HashMap<String, SceneController>();
+
+	public static Map<String, SceneController> SceneControllers = new HashMap<String, SceneController>(); //List of Maps.
+
 
 	public Scene testScene;
 	@Override
@@ -40,6 +47,8 @@ public class Game extends ApplicationAdapter {
 		sceneController = new SceneController();
 
 		sceneManager.currentScene = Test.test;
+		Test t = new Test();
+		ExportScene.sceneToJson(t, "bob");
 	}
 
 	@Override

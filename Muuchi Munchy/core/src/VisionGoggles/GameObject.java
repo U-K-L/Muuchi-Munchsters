@@ -18,8 +18,8 @@ public class GameObject {
 	private String path;
 	public int ID;
 	public String name;
-	private boolean renderBool = true;
-	private boolean player = false;
+	public boolean renderBool = true;
+	public boolean player = false;
 	public double Z = 1;
 	
 	
@@ -28,9 +28,9 @@ public class GameObject {
 
 		this.x = x;
 		this.y = y;
-		path = Path;
+		this.path = Path;
 		this.name = name;
-		this.texture = new Texture(path);
+		this.texture = new Texture(this.path);
 
 		
 	}

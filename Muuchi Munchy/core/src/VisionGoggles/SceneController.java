@@ -2,6 +2,7 @@ package VisionGoggles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controllers;
+
 import com.muuchi.game.Game;
 
 import java.awt.Graphics2D;

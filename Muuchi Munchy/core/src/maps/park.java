@@ -22,7 +22,6 @@ public class park extends SceneController {
 
     public static void make()
     {
-        System.out.println("here");
         new park();
     }
 
@@ -44,7 +43,7 @@ public class park extends SceneController {
 
     public void update() {
         super.update();
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
+        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT))
                 changeScene(Test.test);
     }
 

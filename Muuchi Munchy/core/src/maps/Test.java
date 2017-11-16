@@ -13,14 +13,14 @@ public class Test extends SceneController {
 
     public static Scene test;
     public static String name = "Test";
-    private GameObject obj;
+    public GameObject MegaManMap;
+    public GameObject IsoCube;
 
     public Test(){create();}
 
 
     public static void make()
     {
-        System.out.println("here");
         new Test();
     }
 
@@ -28,10 +28,10 @@ public class Test extends SceneController {
 
         test = new Scene(this);
 
-        obj = new GameObject(0, 0, "MegaMan.png", "map");
-        GameObject obj2 = new GameObject(400, 200, "iso.png", "kid");
+        MegaManMap = new GameObject(0, 0, "MegaMan.png", "map");
+        IsoCube = new GameObject(400, 200, "iso.png", "kid");
 
-        test.addObjects(obj, obj2);
+        test.addObjects(MegaManMap, IsoCube);
 
     }
 
@@ -41,14 +41,14 @@ public class Test extends SceneController {
 
     public void update() {
         super.update();
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-                changeScene(park.Park);
+        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT))
+            changeScene(park.Park);
 
-        System.out.println(obj.x);
     }
 
     public String getName()
     {
         return name;
     }
+
 }
