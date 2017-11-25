@@ -29,7 +29,7 @@ public class Test extends SceneController {
         test = new Scene(this);
 
         MegaManMap = new GameObject(0, 0, "MegaMan.png", "map");
-        IsoCube = new GameObject(400, 200, "iso.png", "kid");
+        IsoCube = new GameObject(50, 200, "iso.png", "kid");
 
         test.addObjects(MegaManMap, IsoCube);
 

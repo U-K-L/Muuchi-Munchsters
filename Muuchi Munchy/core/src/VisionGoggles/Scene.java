@@ -79,7 +79,7 @@ public class Scene{
 			for (GameObject object: GameObjects)
 			{
 				if(object.show() == true)
-					batch.draw(object.texture, object.x, object.y);
+					batch.draw(object.texture, (int)object.x, (int)object.y);
 			}
 		batch.end();
 	}
