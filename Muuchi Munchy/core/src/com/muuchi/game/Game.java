@@ -14,9 +14,7 @@ import java.util.Map;
 
 import VisionGoggles.ExportScene;
 import VisionGoggles.GameObject;
-import VisionGoggles.Scene;
-import VisionGoggles.SceneController;
-import VisionGoggles.SceneManager;
+import VisionGoggles.*;
 import maps.Stage1;
 import maps.Test;
 import maps.park;
@@ -43,8 +41,10 @@ public class Game extends ApplicationAdapter {
 	private Sprite sprite;
 	private int currentFrame = 1;
 	private String currentAtlasKey = new String("0001");
+	private AnimatedObject mai;
 
 	public static Map<String, SceneController> SceneControllers = new HashMap<String, SceneController>(); //List of Maps.
+	public OrthographicCameraSample cam;
 
 
 	public Scene testScene;
@@ -56,33 +56,16 @@ public class Game extends ApplicationAdapter {
 		//img = new Texture("badlogic.jpg");
 		//SceneControllers.put(Test.name, new Test());
 		//SceneControllers.put(park.name, new park());
+		Camera cam = new Camera();
+		Scene.setCamera(cam);
+
+		//SceneControllers.put(Test.name, new Test());
 
 
 		sceneController = new SceneController();
 
 		Stage1 t = new Stage1();
 		sceneManager.currentScene = t.stage1;
-		//ExportScene.sceneToJson(t, "Stage 1");
-		textureAtlas = new TextureAtlas("mai.atlas");
-		AtlasRegion region = textureAtlas.findRegion("0001");
-
-		sprite = new Sprite(region);
-		sprite.setPosition(0, 0);
-		//sprite.scale(2.5f);
-
-		Timer.schedule(new Task(){
-						   @Override
-						   public void run() {
-							   currentFrame++;
-							   if(currentFrame > 12)
-								   currentFrame = 1;
-
-							   // ATTENTION! String.format() doesnt work under GWT for god knows why...
-							   currentAtlasKey = String.format("%04d", currentFrame);
-							   sprite.setRegion(textureAtlas.findRegion(currentAtlasKey));
-						   }
-					   }
-				,0,1/20.0f);
 	}
 
 	@Override
@@ -93,24 +76,13 @@ public class Game extends ApplicationAdapter {
 		batch.begin();
 
 		if(sceneManager != null && Gdx.gl != null);
-			//sceneManager.render();
+			sceneManager.render();
 
 		if(SceneManager.currentScene != null);
-			//SceneManager.currentScene.render();
+			SceneManager.currentScene.render();
 
 		if(SceneManager.currentScene != null);
-			//SceneManager.currentScene.controller.update();
-
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
-			sprite.setX(sprite.getX() - 25);
-		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-			sprite.setX(sprite.getX() + 25);
-		if (Gdx.input.isKeyPressed(Input.Keys.UP))
-			sprite.setY(sprite.getY() + 25);
-		if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
-			sprite.setY(sprite.getY() - 25);
-
-		sprite.draw(batch);
+			SceneManager.currentScene.controller.update();
 
 		batch.end();
 	}
@@ -118,7 +90,5 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
-		textureAtlas.dispose();
-		//img.dispose();
 	}
 }

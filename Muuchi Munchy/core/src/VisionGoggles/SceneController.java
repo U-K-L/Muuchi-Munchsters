@@ -7,14 +7,19 @@ import com.muuchi.game.Game;
 
 import java.awt.Graphics2D;
 
-public class SceneController {
+public class SceneController extends com.badlogic.gdx.Game{
 	
 	//Creates a polymorph to update a single scene.
 	public void update()
 	{
 		
 	}
-	
+
+	@Override
+	public void create() {
+
+	}
+
 	public void render()
 	{
 		
@@ -31,6 +36,7 @@ public class SceneController {
 		//Game.camera.updateMap(scene_new);
 		
 		//new scene.
+		SceneManager.currentScene.dispose();
 		SceneManager.currentScene = null;
 		Game.SceneControllers.get(scene_new.controller.getName()).make();
 		SceneManager.currentScene = scene_new;
