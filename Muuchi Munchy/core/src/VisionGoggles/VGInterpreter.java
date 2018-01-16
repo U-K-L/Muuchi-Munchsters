@@ -77,7 +77,8 @@ public class VGInterpreter {
         {
             case 0: //up
                 obj.x += obj.velocity;
-                obj.y += (obj.velocity / 2);
+                obj.y +=  (float)1/2 / (float)( Math.sqrt(3)/2 ) * obj.velocity;
+                float dw =   (float)1/2 / (float)( Math.sqrt(3)/2 );
                 break;
             case 1: //down
                 obj.x -= obj.velocity;

@@ -7,19 +7,29 @@ package VisionGoggles;
  * Purpose: Creates the scenes class. Handles GameObjects and back images.
  -----------------------------*/
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Scene{
 
-	//--------------------
+//--------------------
 	//Creates arraylist of gameobjects, players, bools, names.
 
 
-	SpriteBatch batch;
+	public SpriteBatch batch;
+	public static Camera camera;
+	public Viewport viewport;
+	private static final float WORLD_TO_SCREEN = 1.0f;
+	private static final float SCENE_WIDTH = 12.80f;
+	private static final float SCENE_HEIGHT = 7.20f;
+
 	private String name;
 	//public Player player;
 	public String HashKey;
@@ -40,11 +50,17 @@ public class Scene{
 		//name = Name;
 		HashKey = name + SceneManager.SceneMap.size();
 		SceneManager.SceneMap.put(HashKey, this);
+
+	}
+
+	public static void setCamera(Camera cam)
+	{
+		camera = cam;
 	}
 	
 	
 	//------------------------------------
-	//-------------------------
+	//-------------------------0, 0, 0
 	//Adds objects to the scene.
 	public void addObjects(GameObject object, int x, int y, String path, String name)
 	{
@@ -74,12 +90,23 @@ public class Scene{
 	//Renders the scenes graphics.
 	public void render()
 	{
+		camera.cam.update();
+		batch.setProjectionMatrix(camera.cam.combined);
 
 		batch.begin();
 			for (GameObject object: GameObjects)
 			{
-				if(object.show() == true)
-					batch.draw(object.texture, (int)object.x, (int)object.y);
+				if(object.show() == true) {
+					batch.draw(object.texture, object.x, object.y, //X Y coordinate
+							object.getOriginX(), object.getoriginY(), //Center of texture
+							object.getwidth(), object.getheight(), //Width and height.
+							WORLD_TO_SCREEN, WORLD_TO_SCREEN, //Scale X and Y.
+							object.getDegrees(),            //Rotation.
+							(int) object.getRectX(), (int) object.getRectY(), //X and Y of the box section.
+							(int) object.getRectWidth(), (int) object.getRectHeight(),//Width of box
+							false, false);
+					object.render(batch);
+				}
 			}
 		batch.end();
 	}
@@ -131,7 +158,7 @@ public class Scene{
 		
 	}
 	
-	//Used for small sorted data.
+	//Used for small sorted data. Sorts all gameobjects based on Z axis.
 	private void insertionSort()
 	{
 		for (int j = 0; j < GameObjects.size(); j++)
@@ -161,6 +188,27 @@ public class Scene{
 		GameObjects.remove(obj);
 		GameObjects.add(i-1, obj);
 		return true;
+	}
+
+	public void dispose()
+	{
+		for (GameObject obj : GameObjects)
+		{
+			obj.dispose();
+		}
+	}
+
+
+	public static float getWorldToScreen() {
+		return WORLD_TO_SCREEN;
+	}
+
+	public static float getSceneWidth() {
+		return SCENE_WIDTH;
+	}
+
+	public static float getSceneHeight() {
+		return SCENE_HEIGHT;
 	}
 	
 }
