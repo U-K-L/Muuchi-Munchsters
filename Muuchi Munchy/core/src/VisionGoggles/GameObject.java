@@ -20,7 +20,7 @@ public class GameObject extends Sprite {
 	//Coordinates.
 	public float x; //X coordinate
 	public float y; //Y coordinate
-	private double Z = 1; //Priority of display.
+	protected double Z = 1; //Priority of display.
 	private int height; //height of object's texture.
 	private int width; //width of object's texture.
 
@@ -66,7 +66,11 @@ public class GameObject extends Sprite {
 
 		
 	}
-//--------------------------------------------------------------------
+
+    public GameObject() {
+    }
+
+    //--------------------------------------------------------------------
 	//Methods and feautures.
 	//
 //--------------------------------------------------------------------

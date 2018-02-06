@@ -38,6 +38,7 @@ public class Scene{
 	public int camX;
 	public int camY;
 	public Gdx g;
+	//private UklParticleEffects particle;
 	ArrayList<GameObject> GameObjects = new ArrayList<GameObject>();
 
 	//Constructor method.
@@ -50,6 +51,7 @@ public class Scene{
 		//name = Name;
 		HashKey = name + SceneManager.SceneMap.size();
 		SceneManager.SceneMap.put(HashKey, this);
+
 
 	}
 
@@ -97,18 +99,38 @@ public class Scene{
 			for (GameObject object: GameObjects)
 			{
 				if(object.show() == true) {
-					batch.draw(object.texture, object.x, object.y, //X Y coordinate
-							object.getOriginX(), object.getoriginY(), //Center of texture
-							object.getwidth(), object.getheight(), //Width and height.
-							WORLD_TO_SCREEN, WORLD_TO_SCREEN, //Scale X and Y.
-							object.getDegrees(),            //Rotation.
-							(int) object.getRectX(), (int) object.getRectY(), //X and Y of the box section.
-							(int) object.getRectWidth(), (int) object.getRectHeight(),//Width of box
-							false, false);
-					object.render(batch);
+					if(object.getClass() == ParticleObject.class)
+					{
+						renderParticle((ParticleObject)object);
+					}
+					else
+					{
+						renderGameObject(object);
+					}
+					object.render(batch); //Used for polymorphism such as animation.
 				}
+
 			}
 		batch.end();
+	}
+
+	//Renders the gameObjects.
+	private void renderGameObject(GameObject object)
+	{
+		batch.draw(object.texture, object.x, object.y, //X Y coordinate
+				object.getOriginX(), object.getoriginY(), //Center of texture
+				object.getwidth(), object.getheight(), //Width and height.
+				WORLD_TO_SCREEN, WORLD_TO_SCREEN, //Scale X and Y.
+				object.getDegrees(),            //Rotation.
+				(int) object.getRectX(), (int) object.getRectY(), //X and Y of the box section.
+				(int) object.getRectWidth(), (int) object.getRectHeight(),//Width of box
+				false, false);
+	}
+
+	//Renders the particles.
+	private void renderParticle(ParticleObject object)
+	{
+
 	}
 	/*
 	public void setPlayer(Player player)
@@ -196,6 +218,7 @@ public class Scene{
 		{
 			obj.dispose();
 		}
+		batch.dispose();
 	}
 
 

@@ -24,6 +24,7 @@ public class Camera implements ApplicationListener {
         cam = new OrthographicCamera();
         cam.position.set(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0);
         cam.setToOrtho(false);
+        cam.zoom = 2.4f;
         cam.update();
     }
 
