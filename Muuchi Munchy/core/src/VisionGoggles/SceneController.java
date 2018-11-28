@@ -10,6 +10,9 @@ import java.awt.Graphics2D;
 public class SceneController extends com.badlogic.gdx.Game{
 	
 	//Creates a polymorph to update a single scene.
+	public void Start(){
+		SceneManager.currentScene.start();
+	}
 	public void update()
 	{
 		

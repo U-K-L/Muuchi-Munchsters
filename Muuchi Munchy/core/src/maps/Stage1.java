@@ -2,10 +2,9 @@ package maps;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.StringBuilder;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import Scripts.MovementTestComponent;
 import VisionGoggles.*;
 
 /**
@@ -14,15 +13,18 @@ import VisionGoggles.*;
 
 public class Stage1 extends SceneController {
 
-    public static Scene stage1;
+    public Scene stage1;
     public static String name = "Stage1";
     public GameObject stage1Map;
     public GameObject IsoPlayer;
 
     public int wait = 0;
-
-    public Stage1(){create();}
     public ParticleObject particle;
+
+    public Stage1(){
+        create();
+    }
+
 
     public void create(){
         stage1 = new Scene(this);
@@ -38,14 +40,15 @@ public class Stage1 extends SceneController {
         particle.startEffect(0.001f);
         stage1.addObjects(stage1Map, IsoPlayer, particle);
 
-        StringBuilder str = new StringBuilder();
-        str.append("mf");
-        IsoPlayer.setScript(str);
+       // StringBuilder str = new StringBuilder();
+       // str.append("mf");
+       // IsoPlayer.setScript(str);
 
     }
 
     @Override
     public void update() {
+        /*
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             stage1Map.setZ(4, stage1);
         }
@@ -86,6 +89,7 @@ public class Stage1 extends SceneController {
             wait = 0;
         }
         wait++;
+        */
     }
 
     public void dispose()

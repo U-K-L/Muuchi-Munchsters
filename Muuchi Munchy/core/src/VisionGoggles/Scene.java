@@ -51,8 +51,12 @@ public class Scene{
 		//name = Name;
 		HashKey = name + SceneManager.SceneMap.size();
 		SceneManager.SceneMap.put(HashKey, this);
+	}
 
-
+	public void start(){
+		for(GameObject obj : GameObjects){
+			obj.start();
+		}
 	}
 
 	public static void setCamera(Camera cam)
@@ -108,6 +112,7 @@ public class Scene{
 						renderGameObject(object);
 					}
 					object.render(batch); //Used for polymorphism such as animation.
+					object.update();
 				}
 
 			}

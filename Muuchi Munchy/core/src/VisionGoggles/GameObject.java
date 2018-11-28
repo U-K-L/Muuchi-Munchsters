@@ -3,6 +3,8 @@ package VisionGoggles;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.StringBuilder;
 
 /*-----------------------------
@@ -13,13 +15,14 @@ import com.badlogic.gdx.utils.StringBuilder;
  * Purpose: Every object displayed on screen is a GameObject.
  * Including the map, actors.
  -----------------------------*/
-public class GameObject extends Sprite {
+public class GameObject extends CompObject {
 	//---------------------------------------------
 		//Fields
 	//---------------------------------------------
 	//Coordinates.
 	public float x; //X coordinate
 	public float y; //Y coordinate
+	public Vector3 position = new Vector3();
 	protected double Z = 1; //Priority of display.
 	private int height; //height of object's texture.
 	private int width; //width of object's texture.
@@ -43,6 +46,8 @@ public class GameObject extends Sprite {
 	public boolean renderBool = true; //If it object is displayed
 	public boolean player = false; //If the object is controlled by player.
 	public StringBuilder script; //Events script. Object events.
+
+	protected SpriteBatch sprite;
 
 	//---------------------------------------------------------------------------------
 	//
@@ -109,7 +114,7 @@ public class GameObject extends Sprite {
 
 	public void render(SpriteBatch batch)
 	{
-
+		sprite = batch;
 	}
 
 	public void dispose()

@@ -1,0 +1,26 @@
+
+island.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+island
+  rotate: false
+  xy: 1, 2165
+  size: 1920, 1080
+  orig: 1920, 1080
+  offset: 0, 0
+  index: 0
+island
+  rotate: false
+  xy: 1, 1083
+  size: 1920, 1080
+  orig: 1920, 1080
+  offset: 0, 0
+  index: 1
+island
+  rotate: false
+  xy: 1, 1
+  size: 1920, 1080
+  orig: 1920, 1080
+  offset: 0, 0
+  index: 2

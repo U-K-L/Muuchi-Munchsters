@@ -31,7 +31,7 @@ public class SceneController {
 		try{
 		if(music != null)
 			Game.musicPlayer.stopMusic();
-			Game.musicPlayer.playMusic(music);
+			Game.musicPlayer.playMusic(music, true);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

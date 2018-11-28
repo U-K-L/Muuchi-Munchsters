@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import java.util.HashMap;
 import java.util.Map;
 
+import Prefabs.*;
 import VisionGoggles.ExportScene;
 import VisionGoggles.GameObject;
 import VisionGoggles.*;
@@ -69,7 +70,7 @@ public class Game extends ApplicationAdapter {
 
 		//nullStage n = new nullStage();
 		Stage1 t = new Stage1();
-		sceneManager.currentScene = t.stage1;
+		sceneManager.SwitchScene(t.stage1);
 		UklViewPorts.create();
 		UklViewPorts.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), "Extend");
 

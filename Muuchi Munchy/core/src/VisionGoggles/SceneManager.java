@@ -36,4 +36,9 @@ public class SceneManager {
 		
 	}
 
+	public static void SwitchScene(Scene scene){
+		currentScene = scene;
+		scene.start();
+	}
+
 }
