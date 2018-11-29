@@ -3,6 +3,7 @@ package VisionGoggles;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,21 +11,25 @@ import java.util.List;
  */
 
 public class CompObject extends Sprite {
-    public List<Behavior> Components;
+    public HashMap<String, Behavior> Components;
 
     public CompObject(){
-        Components = new ArrayList<Behavior>();
+        Components = new HashMap<String, Behavior>();
     }
 
     public void start(){
-        for(Behavior obj : Components){
-            obj.start();
+        for(String key : Components.keySet()){
+            Components.get(key).start();
         }
     }
 
     public void update(){
-        for(Behavior obj : Components){
-            obj.update();
+        for(String key : Components.keySet()){
+            Components.get(key).update();
         }
+    }
+
+    public void AddComponent(Behavior comp){
+        Components.put(comp.getName(), comp);
     }
 }

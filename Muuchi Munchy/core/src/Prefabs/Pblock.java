@@ -1,5 +1,5 @@
 package Prefabs;
-import Scripts.MovementTestComponent;
+import Scripts.*;
 import VisionGoggles.*;
 /**
  * Created by Noah on 11/27/2018.
@@ -8,6 +8,8 @@ import VisionGoggles.*;
 public class Pblock extends GameObject {
 
     public Pblock(){
-        Components.add(new MovementTestComponent());
+        super(30, 350, "images/Player.png", "player");
+        AddComponent(new FourDirections(this));
+
     }
 }

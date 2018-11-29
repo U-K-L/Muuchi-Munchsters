@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.StringBuilder;
 
+import Scripts.Translate;
+
 /*-----------------------------
  * Contributors: Noah Williams
  * Date Created: 9/23/2017
@@ -22,7 +24,7 @@ public class GameObject extends CompObject {
 	//Coordinates.
 	public float x; //X coordinate
 	public float y; //Y coordinate
-	public Vector3 position = new Vector3();
+	public Translate translate = new Translate(this);
 	protected double Z = 1; //Priority of display.
 	private int height; //height of object's texture.
 	private int width; //width of object's texture.
@@ -67,6 +69,7 @@ public class GameObject extends CompObject {
 		this.originY = height * 0.5f;
 		this.rectHeight = height;
 		this.rectWidth = width;
+		AddComponent(translate);
 
 
 		

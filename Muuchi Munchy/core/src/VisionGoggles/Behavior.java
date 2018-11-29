@@ -11,4 +11,5 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public interface Behavior {
     void start();
     void update();
+    String getName();
 }
