@@ -9,6 +9,7 @@ public class Pblock extends GameObject {
 
     public Pblock(){
         super(30, 350, "images/Player.png", "player");
+        Z = 10;
         AddComponent(new FourDirections(this));
 
     }

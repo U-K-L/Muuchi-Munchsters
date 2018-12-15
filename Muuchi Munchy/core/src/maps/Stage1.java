@@ -34,63 +34,15 @@ public class Stage1 extends SceneController {
         stage1Map.x = -stage1Map.getoriginX();
         stage1Map.y = -stage1Map.getoriginY();
         Pblock pblock = new Pblock();
-
-
         particle = new ParticleObject("data/flame.p");
         particle.setAllPosition(30, 350);
         particle.startEffect(0.001f);
         stage1.addObjects(stage1Map, pblock, particle);
-
-       // StringBuilder str = new StringBuilder();
-       // str.append("mf");
-       // IsoPlayer.setScript(str);
-
     }
 
     @Override
     public void update() {
-        /*
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            stage1Map.setZ(4, stage1);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            stage1Map.setZ(-1, stage1);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            stage1Map.y -= 4;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            stage1Map.y += 4;
-        }
 
-       if (Gdx.input.isKeyPressed(Input.Keys.Q))
-            Scene.camera.cam.zoom -= 1.2f;
-        if(Gdx.input.isKeyJustPressed(Input.Keys.D))
-            stage1.dispose();
-        if (Gdx.input.isKeyPressed(Input.Keys.W))
-            Scene.camera.cam.zoom += 1.2f;
-
-        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
-        {
-            particle.setAllPosition(Gdx.input.getX(), Gdx.input.getY());
-            particle.startEffect(0.05f);
-            particle.setContinous(true);
-        }
-
-        if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT))
-        {
-            particle.setAllPosition(Gdx.input.getX(), Gdx.input.getY());
-            particle.startEffect(0.05f);
-            particle.setContinous(false);
-        }
-
-        if(wait >= 1)
-        {
-            VGInterpreter.ReadScript(IsoPlayer);
-            wait = 0;
-        }
-        wait++;
-        */
     }
 
     public void dispose()

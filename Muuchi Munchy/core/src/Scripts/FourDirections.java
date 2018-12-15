@@ -39,6 +39,12 @@ public class FourDirections implements Behavior {
             object.translate.velocity.setLength(0.001f);
         }
     }
+
+    @Override
+    public void action() {
+
+    }
+
     public String getName(){
         return "FourDirections";
     }

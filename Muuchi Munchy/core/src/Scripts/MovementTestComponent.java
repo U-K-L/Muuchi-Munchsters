@@ -38,6 +38,11 @@ public class MovementTestComponent implements Behavior {
         }
     }
 
+    @Override
+    public void action() {
+
+    }
+
     public String getName(){
         return "MoveMentTestComponent";
     }

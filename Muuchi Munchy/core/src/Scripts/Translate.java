@@ -33,6 +33,11 @@ public class Translate implements Behavior {
 
     }
 
+    @Override
+    public void action() {
+
+    }
+
     private void updateX(){
         velocity.x = (float) (Math.cos(Math.toRadians(velocity.angle())) * velocity.len());
     }
