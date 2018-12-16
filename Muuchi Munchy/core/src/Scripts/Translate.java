@@ -13,7 +13,7 @@ public class Translate implements Behavior {
     public Vector2 velocity;
     private GameObject object;
     public Translate(GameObject obj){
-        velocity = new Vector2(1,1);
+        velocity = new Vector2(0.0001f,0.00001f);
 
 
         object = obj;

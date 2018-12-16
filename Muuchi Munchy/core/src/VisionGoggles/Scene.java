@@ -125,7 +125,7 @@ public class Scene{
 		batch.draw(object.texture, object.x, object.y, //X Y coordinate
 				object.getOriginX(), object.getoriginY(), //Center of texture
 				object.getwidth(), object.getheight(), //Width and height.
-				WORLD_TO_SCREEN, WORLD_TO_SCREEN, //Scale X and Y.
+				WORLD_TO_SCREEN * object.getScaleX(), WORLD_TO_SCREEN* object.getScaleY(), //Scale X and Y.
 				object.getDegrees(),            //Rotation.
 				(int) object.getRectX(), (int) object.getRectY(), //X and Y of the box section.
 				(int) object.getRectWidth(), (int) object.getRectHeight(),//Width of box

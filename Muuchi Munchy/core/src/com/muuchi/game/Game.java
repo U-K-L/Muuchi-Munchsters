@@ -63,8 +63,7 @@ public class Game extends ApplicationAdapter {
 	private PicState state;
 
 	public static Map<String, SceneController> SceneControllers = new HashMap<String, SceneController>(); //List of Maps.
-	public Stage1 testStage;
-	RenderMaps map;
+	public TutorialStage testStage;
 	TEST tester;
 	@Override
 	public void create () {
@@ -73,13 +72,12 @@ public class Game extends ApplicationAdapter {
 		Camera cam = new Camera();
 		Scene.setCamera(cam);
 		sceneController = new SceneController();
-		//nullStage n = new nullStage();
-		testStage = new Stage1();
-		sceneManager.SwitchScene(testStage.stage1);
+		testStage = new TutorialStage();
+		sceneManager.SwitchScene(testStage.scene);
 		UklViewPorts.create();
 		UklViewPorts.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), "Extend");
-		map = new RenderMaps(testStage.stage1);
-		map.create();
+		//map = new RenderMaps(testStage.scene);
+		//map.create();
 	}
 
 	@Override
@@ -98,7 +96,7 @@ public class Game extends ApplicationAdapter {
 		if(SceneManager.currentScene != null);
 			SceneManager.currentScene.controller.update();
 
-			map.RenderLines();
+			//map.RenderLines();
 		batch.end();
 	}
 

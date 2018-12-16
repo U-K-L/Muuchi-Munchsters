@@ -38,7 +38,7 @@ public class GameObject extends CompObject {
 	private float rectWidth; //Width of box.
 	private float rectHeight; //Height of box.
 	public int direction = 0; //The direction, 0 up, 1 down, 2 right, 3 left.
-	public double velocity = 1; //Determines how far an object will move.
+	public double velocity = 0; //Determines how far an object will move.
 
 	//Objects.
 	public Texture texture; //The image used
@@ -69,10 +69,32 @@ public class GameObject extends CompObject {
 		this.originY = height * 0.5f;
 		this.rectHeight = height;
 		this.rectWidth = width;
+		this.setScale(1);
 		AddComponent(translate);
 
 
-		
+
+	}
+
+	public GameObject(float x, float y,float z, String Path, String name){
+
+		this.x = x;
+		this.y = y;
+		this.path = Path;
+		this.name = name;
+		this.texture = new Texture(this.path);
+		this.width = this.texture.getWidth();
+		this.height = this.texture.getHeight();
+		this.originX = width * 0.5f;
+		this.originY = height * 0.5f;
+		this.rectHeight = height;
+		this.rectWidth = width;
+		this.setScale(1);
+		this.Z = z;
+		AddComponent(translate);
+
+
+
 	}
 
     public GameObject() {
@@ -199,6 +221,15 @@ public class GameObject extends CompObject {
 	public float getRectHeight() {return rectHeight;}
 
 	public void setRectHeight(float rectHeight) {this.rectHeight = rectHeight;}
+
+	public void setTexture(String file){
+		texture.dispose();
+		texture = new Texture(file);
+	}
+
+	public String getTexturePath(){
+		return this.path;
+	}
 
 
 
