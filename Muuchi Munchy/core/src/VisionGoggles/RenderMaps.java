@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RenderMaps {
 
@@ -23,17 +24,110 @@ public class RenderMaps {
     private boolean GridOn = false;
 
     public ShapeRenderer shapeRenderer;
+    public HashMap<Integer, TileNode> graphMap;
 
     public RenderMaps(Scene scene){
         float tileAngle = 180-tileAxis;
         tileWidth = tileSize;
         tileHeight = (float)(tileSize*Math.tan(Math.toRadians(tileAngle/2)));
         this.scene = scene;
+        graphMap = new HashMap<Integer, TileNode>();
     }
+
+
+    float[] drawTile(float x, float y, float z, int index){
+        x = x*-1;
+        y = y*-1;
+        //Translational Matrix.
+        float[] t = new float[]{
+                1f,0f,0,
+                0f,1f,0,
+                (x-y) * (tileWidth/2), (y+x) * (tileHeight/2), 0f};
+        Matrix3 T = new Matrix3(t);
+        //Point Matrix, that represents origin to be translated.
+        float[] p = new float[]{
+                Gdx.graphics.getWidth()/4, 0f, 1f,
+                0f,Gdx.graphics.getHeight(), 1f,
+                0, 0, 0f};
+        Matrix3 point = new Matrix3(p);
+
+        T = T.mul(point);
+        //Convert to a 2D vector. Take the x,y identity coordinates.
+        Vector2 points = new Vector2(T.getValues()[0], T.getValues()[4]);
+        float[] vertexO = new float[]{};
+
+        if(GridOn) {
+            float[] vertex = new float[]{
+                    0 + points.x, 0 + points.y, //Top center.
+                    (tileWidth / 2) + points.x, (tileHeight / 2) + points.y, //Far right corner.
+                    (0) + points.x, (tileHeight) + points.y, //Bottom.
+                    (-tileWidth / 2) + points.x, (tileHeight / 2) + points.y,//Left corner.
+            };
+            vertexO = vertex;
+        }
+        placeBlock(points, x, y, index);
+        return vertexO;
+
+    }
+
+    public void placeBlock(Vector2 points, float x, float y, int index){
+        if(tiles.size() > index) {
+            Tile tile = tiles.get(index);
+            TileNode node = new TileNode(index, tile, (int)tile.dimension.Height);
+            tile.dimension.drawBlock(points.x, points.y, x, y, tile.dimension.Height);
+            graphMap.put(index, node);
+            System.out.println(index);
+        }
+    }
+
+    public void addToGraph(int index, TileNode node){
+
+        node.addRightNode(tiles);
+    }
+
+    public void addAllToGraph(float[][] mapMatrix){
+        for(int key : graphMap.keySet()){
+            TileNode node = graphMap.get(key);
+            node.addRightNode(tiles);
+            node.addLEFTNode(tiles);
+            node.addUPNode(tiles, mapMatrix);
+            node.addDOWNNode(tiles, mapMatrix);
+        }
+
+    }
+
+    public void RenderMatrix(float[][] mapMatrix){
+        int index = 0;
+        for(int i = 0; i < mapMatrix[0].length; i++){
+            for(int j = 0; j < mapMatrix[1].length; j++) {
+                createBlock(index, (int) mapMatrix[i][j]);
+                //if ((int) mapMatrix[i][j] > 0){
+                    drawTile((float) j, (float) i, mapMatrix[i][j], index);
+                 //}
+                index++;
+            }
+        }
+        addAllToGraph(mapMatrix);
+    }
+
+    public void createBlock(int i, int h){
+        Tile tile = new Tile();
+        tile.dimension.Height = h;
+        if(h >= 1);
+        else
+            tile.setShow(false);
+        for(int index = 0; index < tile.dimension.Height; index++){
+            GameObject obj = new GameObject(tile.x, tile.y, index+2, tile.getTexturePath(), "blocks");
+            tile.addBlock(obj, scene);
+        }
+        tiles.add(tile);
+        tile.addSelf(scene);
+    }
+
+
 
     public void create(){
         shapeRenderer = new ShapeRenderer();
-
         for(int x = -tileAmount; x <= tileAmount; x++){
             for(int y = -tileAmount; y <= tileAmount; y++){
                 Tile tile = new Tile();
@@ -77,70 +171,5 @@ public class RenderMaps {
         shapeRenderer.polygon(drawTile(20*(float)Math.sin(angle), 7*(float)Math.cos(angle), 0f, 0));
         shapeRenderer.polyline(debugFunction);
         shapeRenderer.rect(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2, 50.3f, 50.8f);
-    }
-
-
-    float[] drawTile(float x, float y, float z, int index){
-        x = x*-1;
-        y = y*-1;
-        //Translational Matrix.
-        float[] t = new float[]{
-                1f,0f,0,
-                0f,1f,0,
-                (x-y) * (tileWidth/2), (y+x) * (tileHeight/2), 0f};
-        Matrix3 T = new Matrix3(t);
-        //Point Matrix, that represents origin to be translated.
-        float[] p = new float[]{
-                Gdx.graphics.getWidth()/4, 0f, 1f,
-                0f,Gdx.graphics.getHeight(), 1f,
-                0, 0, 0f};
-        Matrix3 point = new Matrix3(p);
-
-        T = T.mul(point);
-        //Convert to a 2D vector. Take the x,y identity coordinates.
-        Vector2 points = new Vector2(T.getValues()[0], T.getValues()[4]);
-        float[] vertexO = new float[]{};
-
-        if(GridOn) {
-            float[] vertex = new float[]{
-                    0 + points.x, 0 + points.y, //Top center.
-                    (tileWidth / 2) + points.x, (tileHeight / 2) + points.y, //Far right corner.
-                    (0) + points.x, (tileHeight) + points.y, //Bottom.
-                    (-tileWidth / 2) + points.x, (tileHeight / 2) + points.y,//Left corner.
-            };
-            vertexO = vertex;
-        }
-        if(tiles.size() > index) {
-            tiles.get(index).dimension.drawBlock(points.x, points.y, x, y, tiles.get(index).dimension.Height);
-        }
-        return vertexO;
-
-    }
-
-    public void RenderMatrix(float[][] mapMatrix){
-        int index = 0;
-        for(int i = 0; i < mapMatrix[0].length; i++){
-            for(int j = 0; j < mapMatrix[1].length; j++) {
-                createBlock(index, (int) mapMatrix[i][j]);
-                if ((int) mapMatrix[i][j] > 0){
-                    drawTile((float) j, (float) i, mapMatrix[i][j], index);
-                 }
-                index++;
-            }
-        }
-    }
-
-    public void createBlock(int i, int h){
-        Tile tile = new Tile();
-        tile.dimension.Height = h;
-        if(h >= 1);
-        else
-            tile.setShow(false);
-        for(int index = 0; index < tile.dimension.Height; index++){
-            GameObject obj = new GameObject(tile.x, tile.y, index+2, tile.getTexturePath(), "blocks");
-            tile.addBlock(obj, scene);
-        }
-        tiles.add(tile);
-        tile.addSelf(scene);
     }
 }
