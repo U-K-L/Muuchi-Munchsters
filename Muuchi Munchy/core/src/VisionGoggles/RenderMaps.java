@@ -19,9 +19,10 @@ public class RenderMaps {
     public int tileAmount = 8;
     public Scene scene;
     public ArrayList<Tile> tiles = new ArrayList<Tile>();
+    public ArrayList<TileNode> nodes = new ArrayList<TileNode>();
     private float[] debugFunction;
     public 	float angle = 0f;
-    private boolean GridOn = false;
+    private boolean GridOn = true;
 
     public ShapeRenderer shapeRenderer;
     public HashMap<Integer, TileNode> graphMap;
@@ -46,7 +47,7 @@ public class RenderMaps {
         Matrix3 T = new Matrix3(t);
         //Point Matrix, that represents origin to be translated.
         float[] p = new float[]{
-                Gdx.graphics.getWidth()/4, 0f, 1f,
+                Gdx.graphics.getWidth()/2, 0f, 1f,
                 0f,Gdx.graphics.getHeight(), 1f,
                 0, 0, 0f};
         Matrix3 point = new Matrix3(p);
@@ -73,25 +74,25 @@ public class RenderMaps {
     public void placeBlock(Vector2 points, float x, float y, int index){
         if(tiles.size() > index) {
             Tile tile = tiles.get(index);
-            TileNode node = new TileNode(index, tile, (int)tile.dimension.Height);
+            TileNode node = new TileNode(index, (int)tile.dimension.Height, tile);
             tile.dimension.drawBlock(points.x, points.y, x, y, tile.dimension.Height);
             graphMap.put(index, node);
-            System.out.println(index);
+            nodes.add(index, node);
         }
     }
 
     public void addToGraph(int index, TileNode node){
 
-        node.addRightNode(tiles);
+        node.addRightNode(nodes, node);
     }
 
     public void addAllToGraph(float[][] mapMatrix){
         for(int key : graphMap.keySet()){
             TileNode node = graphMap.get(key);
-            node.addRightNode(tiles);
-            node.addLEFTNode(tiles);
-            node.addUPNode(tiles, mapMatrix);
-            node.addDOWNNode(tiles, mapMatrix);
+            node.addRightNode(nodes, node);
+            node.addLEFTNode(nodes, node);
+            //node.addUPNode(tiles, mapMatrix);
+            //node.addDOWNNode(tiles, mapMatrix);
         }
 
     }

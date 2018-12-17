@@ -12,6 +12,7 @@ import java.util.List;
 
 public class CompObject extends Sprite {
     public HashMap<String, Behavior> Components;
+    public TileNode currentNode;
 
     //Hashmap of all components.
     public CompObject(){

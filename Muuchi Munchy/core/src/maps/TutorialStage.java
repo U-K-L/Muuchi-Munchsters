@@ -16,13 +16,11 @@ public class TutorialStage extends SceneController {
     public Scene scene;
     public static String name = "TutorialStage";
     public GameObject background;
-    public GameObject Player;
+    public Pblock Player;
 
     public int wait = 0;
     public ParticleObject particle;
     RenderMaps map;
-    float[][] mapMatrix;
-
     public TutorialStage(){
         create();
     }
@@ -35,18 +33,18 @@ public class TutorialStage extends SceneController {
        background = new background();
        scene.addObjects(Player, background);
         //{0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f},
-        mapMatrix = new float[][]{
-                {1f, 1f, 2f, 1f, 1f, 1f, 1f, 0f, 0f}, //0-8
-                {1f, 1f, 0f, 3f, 0f, 0f, 1f, 0f, 0f}, //9-17
-                {1f, 0f, 10f, 0f, 0f, 0f, 1f, 0f, 0f}, //18-26
-                {1f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 0f},
-                {4f, 0f, 0f, 0f, 0f, 0f, 1f, 0f, 0f},
-                {0f, 0f, 0f, 0f, 2f, 1f, 1f, 0f, 0f},
-                {0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f},
-                {0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f},
-                {1f, 0f, 0f, 1f, 1f, 1f, 0f, 0f, 20f}
+        SceneManager.mapMatrix = new float[][]{
+                {1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f}, //0-8
+                {1f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f}, //9-17
+                {1f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f}, //18-26
+                {1f, 0f, 0f, 2f, 2f, 2f, 0f, 0f, 1f},
+                {1f, 0f, 0f, 2f, 2f, 2f, 0f, 0f, 1f},
+                {1f, 0f, 0f, 2f, 2f, 2f, 0f, 0f, 1f},
+                {1f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f},
+                {1f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f},
+                {1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f}
         };
-        map.RenderMatrix(mapMatrix);
+        map.RenderMatrix(SceneManager.mapMatrix);
 /*
         float[][]  mapMatrix2;
         mapMatrix2 = new float[][]{
@@ -71,19 +69,26 @@ public class TutorialStage extends SceneController {
         map.RenderMatrix(mapMatrix2);
 
         */
+        Player.currentNode = map.graphMap.get(8);
     }
 
     @Override
     public void update() {
-        //background.setScale();
-        background.update();
+        if (CONDITIONS.GameState == CONDITIONS.GAMESTATES.PLAY){
+            background.update();
 
-        if(map.graphMap != null){
-            TileNode node = map.graphMap.get(11);
-            System.out.println("RIGHT" + node.getRightNode().dimension.Height);
-            System.out.println("LEFT" + node.getLEFTNode().dimension.Height);
-            System.out.println("UP" + node.getUPNode().dimension.Height);
-            System.out.println("DOWN" + node.getDOWNNode().dimension.Height);
+        if (map.graphMap != null) {
+
+            int direction = Player.fourdirections.checkCommands();
+            Player.fourdirections.decideCommand();
+            if (Player.fourdirections.nodeCollide(Player.currentNode, direction, SceneManager.mapMatrix)) {
+
+            }
+
+        }
+    }
+        else{
+
         }
     }
 

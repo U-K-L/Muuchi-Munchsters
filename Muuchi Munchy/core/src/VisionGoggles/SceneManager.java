@@ -13,6 +13,17 @@ import java.util.Map;
 public class SceneManager {
 	public static Map<String, Scene> SceneMap = new HashMap<String, Scene>();
 	public static Scene currentScene;
+	public static float[][] mapMatrix = new float[][]{
+			{1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f}, //0-8
+			{1f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f}, //9-17
+			{1f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f}, //18-26
+			{1f, 0f, 0f, 2f, 2f, 2f, 0f, 0f, 1f},
+			{1f, 0f, 0f, 2f, 2f, 2f, 0f, 0f, 1f},
+			{1f, 0f, 0f, 2f, 2f, 2f, 0f, 0f, 1f},
+			{1f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f},
+			{1f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f},
+			{1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f}
+	};
 	
 	public static void initialize()
 	{
